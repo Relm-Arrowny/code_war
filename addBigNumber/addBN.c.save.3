@@ -1,0 +1,97 @@
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+#include <math.h>
+char *add(const char *a, const char *b);
+
+int main(){
+	
+  	char *str = add("638299834329842892313123131234165165165165165167293874","90938498237058927340892374089");
+	/*
+	char *str1 = "44423132312312312312";
+	char *str2 =calloc(19, sizeof(char));
+	int base;
+	memcpy(str2, str1+4, sizeof(char)*19);
+	char *eptr;
+	unsigned long long v =strtoull(str2, &eptr, base);
+ 	unsigned long long y =strtoull(str1, &eptr, base);
+	unsigned long long z = v+v;
+	char * out;
+	sprintf(out, "%llu", y);
+	printf("%llu\n", v);
+	int a = (int) str1[0]-48;
+	int b =(int) str[1]-48;
+	*/
+	printf("%s",str);
+	return 0;
+}
+
+
+char *add(const char *a, const char *b) {
+	
+  	int alen =  strlen(a);		//get string size
+  	int blen = strlen(b);  
+	int retStrlen = 0;
+	retStrlen = alen>blen ?  alen : blen ;    //set the size of the Str
+	char * rStr = calloc (retStrlen,sizeof(char));	//set aside mem
+	unsigned long long aA[(int) ceil(alen/17.0)]; //two arrays to stroe string
+        unsigned long long aB[(int) ceil(blen/17.0)];
+	//printf("%i \n", (int) ceil(retStrlen/19.0));
+	char *str1 = calloc(17, sizeof(char));
+        char *str2 = calloc(17, sizeof(char));
+        char *eptr;                     //pointer needed for str to long long
+        int base;                       //base elemeent for str to long long
+	float cPerRead = 17.0;
+	int carry = 0;
+
+	for (int i = 1; i<=(int) ceil(retStrlen/cPerRead); i++){
+		char *str1 = calloc(cPerRead, sizeof(char));
+		char *str2 = calloc(cPerRead, sizeof(char));		
+	        char *eptr;                     //pointer needed for str to long long
+		if (floor(alen/cPerRead)>=i){
+			memcpy(str1, a + (alen-i*(int)cPerRead), sizeof(char)*cPerRead);
+		}
+		else if (floor(alen/cPerRead)-i == -1){
+			memcpy(str1, a, sizeof(char)*alen-(floor(alen/cPerRead)*cPerRead));
+		}
+		else 
+			memset(str1, 0, sizeof(char)*cPerRead);
+
+
+                if (floor(blen/cPerRead)>=i){
+                        memcpy(str2, b + (blen-i*(int)cPerRead), sizeof(char)*cPerRead);
+                }
+                else if (floor(blen/cPerRead)-i == -1){
+                        memcpy(str2, b, sizeof(char)*blen-(floor(blen/cPerRead)*cPerRead));
+                }
+                else
+                        memset(str2, 0, sizeof(char)*cPerRead);
+
+		
+		unsigned long long v = strtoull(str1, &eptr, base);
+        	unsigned long long y = strtoull(str2, &eptr, base);
+		
+/*
+		 (carry){
+			result += 1;
+			carry = 0;
+		}
+		if (result>1e17){
+			carry = 1;
+			result -= 1e17;
+		}
+		*/
+
+
+		printf("%llu + %lli  %d \n", v, v + y, carry);
+		sprintf(rStr, "%llu%s", v, rStr);
+		
+	}
+//	unsigned long long *aA = strtoull(a, &eptr, base); //two arrays to stroe string
+//	unsigned long long *aB = strtoull(b, &eptr, base); 
+
+
+  //sprintf(rStr, "%lli",(long long) result);
+  //printf("%Lf \n ", result);
+  return rStr;
+}

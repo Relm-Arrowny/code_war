@@ -1,0 +1,90 @@
+#include <stdlib.h>
+#include <stdio.h>
+#include <math.h>
+#include <string.h>
+char** get_pins(const char* observed, size_t* count);
+void free_pins(char ** pins);
+
+int main () {
+	const char * observed = "012";
+	size_t expected_count = 5;
+	char ** result = get_pins(observed, &expected_count);
+	printf("%s, %li", result[0], sizeof(observed));
+	free_pins(result);
+	return 0;
+}
+
+
+
+char** get_pins(const char* observed, size_t* count) {
+	*count = 1;
+	char** numpad = calloc(10, sizeof(char*));
+	numpad[0] = "08";
+	numpad[1] = "124";
+        numpad[2] = "1235";
+        numpad[3] = "236";
+        numpad[4] = "1457";
+        numpad[5] = "2456";
+        numpad[6] = "3569";
+        numpad[7] = "478";
+        numpad[8] = "57890";
+        numpad[9] = "689";
+	int aObserved [strlen(observed)];
+	int totalPins = 1;
+	for (int i = 0; i<sizeof(aObserved)/sizeof(aObserved[0]); i++){
+		aObserved[i] = (int)observed[i]-48;
+		totalPins *= strlen(numpad[(int)observed[i]-48]);
+		printf("%i,%i\n", aObserved[i], totalPins);
+	}
+
+	char arr[totalPins][strlen(observed)+1];
+	int div = 1;
+	for (int i = 0; i<strlen(observed); i++){
+		div  *= strlen(numpad[i]);
+		int counter = 0;
+		for (int j = 0; j<totalPins; j++){
+			if (j>=totalPins/div*(counter+1)){
+				counter++;
+			}
+			if (counter>strlen(numpad[i])-1){
+				counter = 0;
+			}
+			arr[j][i] = numpad[i][counter];
+                                printf("%c---%i---%i\n", arr[j][i],j,i);
+		}
+	}
+
+	for (int k = 0; k < totalPins; ++k){
+
+		
+    		for(int j = 0; j < strlen(observed); ++j){
+			
+        		printf("%c",arr[k][j]);
+    		}
+    		printf("\n");
+	}
+
+	char *rStr = calloc(19, sizeof(char));
+        memset(rStr+19-1, '\0',1);
+	strcat(rStr, "temp");
+	char **prStr = calloc(totalPins, sizeof(char*));
+	char *rStr1 = calloc(19, sizeof(char));
+        memset(rStr1+19-1, '\0',1);
+        strcat(rStr1, "123");
+	prStr[0] = rStr;
+	prStr[1] = rStr1;
+	return prStr;
+}
+
+//This function will be called once per every call to get_pins
+//with a pointer value returned by such call.
+void free_pins(char ** pins) {
+    //...do your cleanup, if necessary
+    for(int i=0; i<sizeof(pins);i++)
+    {
+        free(pins[i]);
+    }
+
+    free(pins);
+
+}

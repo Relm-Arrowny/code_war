@@ -1,0 +1,40 @@
+#include <stdlib.h>
+#include <stdio.h>
+#include <math.h>
+#include <string.h>
+const char** get_pins(const char* observed, size_t* count);
+void free_pins(const char ** pins);
+
+int main () {
+	const char * observed = "2521";
+	size_t expected_count = 5;
+	const char ** result = get_pins(observed, &expected_count);
+	printf("%s", *result);
+	free_pins(result);return 0;
+}
+
+
+
+const char** get_pins(const char* observed, size_t* count) {
+	*count = 1;
+	char *rStr = calloc(19, sizeof(char));
+        memset(rStr+19-1, '\0',1);
+	strcat(rStr, "temp");
+	printf("%li", sizeof(rStr)/sizeof(char));
+	const char** prStr = &rStr;
+	
+	return prStr;
+}
+
+//This function will be called once per every call to get_pins
+//with a pointer value returned by such call.
+void free_pins(const char ** pins) {
+    //...do your cleanup, if necessary
+    for(int i=0; i<sizeof(*pins);i++)
+    {
+        free(pins[i]);
+    }
+
+    free(pins);
+
+}

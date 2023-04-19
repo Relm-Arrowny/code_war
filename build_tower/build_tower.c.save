@@ -1,0 +1,27 @@
+#include <stdio.h>
+
+void build_tower(unsigned n, char tower[n][2 * n - 1]);
+int main(){
+	int n = 3;
+	char tower[n][2*n-1];
+	build_tower(n, tower);
+	for (int i= 1; i<=n; i++){
+		printf("%s\n", tower[i]);
+	}
+ 
+  return 0;
+}
+
+void build_tower(unsigned n, char tower[n][2 * n - 1])
+{
+	int cunter = 0;
+	for (int i = n; i > 0; i--){
+		for (int j = n; j>counter; j--){
+			tower[n][j] = *"*";
+			 printf("%c\n", tower[n][j]);
+		}
+		counter++;
+
+	}
+
+}

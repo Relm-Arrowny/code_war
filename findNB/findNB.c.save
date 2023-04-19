@@ -1,0 +1,19 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+long long findNb(long long m);
+
+int main(){
+	
+
+	printf("%lli  ", findNb(91716553919377));
+	return 0;
+}
+
+long long findNb(long long m)
+{
+  	double sqrtM = sqrt(m);
+	if (ceilsqrtM) != sqrtM)
+		return -1;
+
+}
