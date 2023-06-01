@@ -1,0 +1,22 @@
+ -----------------sudo ---------------------------
+problem work out the number of combo in coins to make up a sum
+
+combo counter = 0
+
+push the first state into the stack
+
+while (stack is not empty)
+        curState = pop the stack
+        if  sum is 0
+                incresese combo by 1
+        else if sum is less than 0
+                do nothing
+        else
+                if there are other coins to check
+                        push curState and shift coinPos by 1
+
+                check if sum - current coin is > 0
+                        push new state to the stack with new sum
+
+
+done
